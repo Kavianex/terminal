@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+// import CryptoMarket from './components/cryptomarket';
+// import { useMetaMask } from "metamask-react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Assets from "./pages/Assets";
+import Transactions from "./pages/Transactions";
+import Terminal from "./pages/Terminal"
+import Menu from './components/menu';
+import Msg from './components/msg';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Msg/>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Menu />}>
+          <Route index element={<Terminal />} />
+          <Route path="assets" element={<Container><Assets /></Container>} />
+          <Route path="transactions" element={<Container><Transactions /></Container>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    <ToastContainer 
+      position="top-right"
+      autoClose={1000}
+    />
+    </>
   );
 }
 

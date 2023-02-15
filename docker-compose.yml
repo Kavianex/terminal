@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  terminal:
+    container_name: terminal
+    restart: unless-stopped
+    image: terminal
+    build: .
+    ports:
+      - "127.0.0.1:3030:3000"

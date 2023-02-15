@@ -1,0 +1,20 @@
+@import "~bootstrap/scss/bootstrap";
+$theme-colors: () !default;
+
+// stylelint-disable-next-line scss/dollar-variable-default
+
+$primaryColor: #682e68;
+$secondaryColor: #ffca0c;
+
+$theme-colors: (
+"primary":    $primaryColor,
+"secondary":  $secondaryColor,
+"success":    $success,
+"info":       $info,
+"warning":    $warning,
+"danger":     $danger,
+"light":      $secondary,
+"dark":       $dark
+);
+// $enable-gradients: true;
+@import "~bootstrap/scss/bootstrap";
