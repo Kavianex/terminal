@@ -18,24 +18,24 @@ const columns = [
     },
     {
         name: 'Locked',
-        selector: row => row.free,
+        selector: row => row.locked,
 	    	sortable: true,
     },
-    {
-        name: 'Action',
-        selector: row => (
-            <>
-                <Button 
-                    variant="outline-primary">
-                    deposit
-                </Button>{'   '}
-                <Button 
-                    variant="outline-primary">
-                    withdraw
-                </Button>
-            </>
-        )
-    },
+    // {
+    //     name: 'Action',
+    //     selector: row => (
+    //         <>
+    //             <Button 
+    //                 variant="outline-primary">
+    //                 deposit
+    //             </Button>{'   '}
+    //             <Button 
+    //                 variant="outline-primary">
+    //                 withdraw
+    //             </Button>
+    //         </>
+    //     )
+    // },
 ];
 const setFreeBalance = () => {
     API.account.setFreeBalance()
@@ -76,7 +76,7 @@ const Assets = () => {
                 process.env.REACT_APP_APPLICATION_MODE === "TESTNET"? (
                     <div>
                         <div>
-                            <button className="btn btn-outline-primary my-2 my-sm-0" onClick={setFreeBalance}>Set free 10,000 usdt for test</button>
+                            <button className="btn btn-outline-primary my-2 my-sm-0" onClick={setFreeBalance}>Set free balance to 10,000 usdt for test</button>
                             <br></br>
                             <span>You should have no open positions and orders</span>
                         </div>
