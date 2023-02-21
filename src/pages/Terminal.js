@@ -404,7 +404,7 @@ const Terminal = () => {
     const [balances, setBalances] = useState({});
     const [TerminalTableData, setTerminalTableData] = useState({'orders':[], 'positions':[]});
     const [depth, setDepth] = useState({"asks": {}, "bids": {}});
-    const { sendJsonMessage } = useWebSocket(`${process.env.REACT_APP_SPOT_WEBSOCKET}/ws/${localStorage.getItem('accountId')}`, {
+    const { sendJsonMessage } = useWebSocket(`${process.env.REACT_APP_WEBSOCKET_SERVER}/ws/${localStorage.getItem('accountId')}`, {
         onOpen: () => sendJsonMessage({"method": "SUBSCRIBE", "channels": [
                 `${symbol}:orderBook`,
                 'balance',

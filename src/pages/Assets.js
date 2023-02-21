@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import DataTable from 'react-data-table-component';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import {API} from '../scripts/utils';
 import Wallet from '../components/wallet';
 
