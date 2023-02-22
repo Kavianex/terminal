@@ -4,6 +4,8 @@ services:
     container_name: terminal
     restart: unless-stopped
     image: terminal
+    env_file:
+      - .env
     build: .
     ports:
       - "127.0.0.1:3030:3000"
