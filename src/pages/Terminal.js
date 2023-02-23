@@ -28,7 +28,7 @@ const OrderInput = (balances) => {
     const [orderPrice, setOrderPrice] = useState(0);
     const [orderQuantity, setOrderQuantity] = useState(0);
     const [orderAmount, setOrderAmount] = useState(0);
-    const [leverage, setLeverage] = useState(20);
+    const [leverage, setLeverage] = useState(5);
     let amountDisabled = !(orderType === "MARKET" && orderSide === "LONG");
     let priceDisabled = orderType === "MARKET";
     let quantityDisabled = !amountDisabled;
@@ -83,6 +83,7 @@ const OrderInput = (balances) => {
                 <br></br>
                 <RangeSlider value={leverage} max={50} min={1}
                         variant='primary'
+                        disabled={true}
                         tooltip='off'
                         onChange={changeEvent => setLeverage(changeEvent.target.value)}
                         onAfterChange={changeEvent => console.log(changeEvent.target.value)}

@@ -9,7 +9,7 @@ function Menu() {
     <>
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="/">
+          <Navbar.Brand href="https://www.kavianex.com">
             <img src="https://www.kavianex.com/logo64.png" width="30" height="30" alt=""/>{' '}
             <span>Kavianex</span>
           </Navbar.Brand>
