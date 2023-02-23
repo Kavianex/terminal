@@ -10,7 +10,7 @@ function Menu() {
       <Navbar bg="light" expand="lg">
         <Container>
           <Navbar.Brand href="/">
-            <img src="https://www.kavianex.com/logo192.png" width="30" height="30" alt=""/>{' '}
+            <img src="https://www.kavianex.com/logo64.png" width="30" height="30" alt=""/>{' '}
             <span>Kavianex</span>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
