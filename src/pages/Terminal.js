@@ -379,8 +379,8 @@ const TerminalTable = (TerminalTableData) => {
         data = openPositions;
         columns = openPositionsColumns;
     }
-    console.log('data', data);
-    console.log('columns', columns);
+    // console.log('data', data);
+    // console.log('columns', columns);
 
     return (
         <>
@@ -441,7 +441,7 @@ const Terminal = () => {
         },
         onClose: (c) => {console.log("ws closed")}, 
         reconnectInterval: 1
-        });
+    });
 
     localStorage.setItem("TerminalTradingSymbol", symbol);
     useEffect(
@@ -455,7 +455,7 @@ const Terminal = () => {
 
                 API.account.getOpenPositions().then(positionsData => {
                     let _TerminalTableDataPositions = {};
-                    console.log('positionsData', positionsData);
+                    // console.log('positionsData', positionsData);
                     positionsData.map(position => {
                         _TerminalTableDataPositions[position.symbol] = position;
                         return 0
@@ -466,7 +466,7 @@ const Terminal = () => {
                     // setTerminalTableData();
                     // setTerminalTableData(_TerminalTableDataPositions);
                     let new_TerminalTableData = {'positions': _TerminalTableDataPositions, 'orders': _TerminalTableDataOrders};
-                    console.log('new_TerminalTableData', new_TerminalTableData);
+                    // console.log('new_TerminalTableData', new_TerminalTableData);
                     setTerminalTableData(new_TerminalTableData);
                 
                 }).catch(() => {

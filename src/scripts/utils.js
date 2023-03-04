@@ -3,6 +3,7 @@ API.account = {};
 API.sendRequest = async function(method, endpoint, params){
   method = method.toUpperCase();
   const private_methods = ["POST", "DELETE", "PUT", "PATCH"];
+  let accountId = localStorage.getItem('accountId');
   let request = {
     method: method.toUpperCase(),
     headers: {
@@ -10,6 +11,9 @@ API.sendRequest = async function(method, endpoint, params){
     Accept: 'application/json',
     }
   };
+  if (accountId) {
+    request.headers.account_id = accountId;
+  }
   if (private_methods.indexOf(method) > -1){
     request.headers.Authorization = localStorage.getItem('token');
     if (params){
@@ -19,7 +23,8 @@ API.sendRequest = async function(method, endpoint, params){
       request.params = params;
   }
   try {
-    const response = await fetch(process.env.REACT_APP_API_SERVER + endpoint, request);
+    let url = process.env.REACT_APP_API_SERVER + endpoint;
+    const response = await fetch(url, request);
     switch(response.status) {
       case 401:
         localStorage.setItem('token', '');
@@ -45,7 +50,7 @@ API.sendRequest = async function(method, endpoint, params){
   // setIsLoading(false);
   }
 }
-API.account.getText2Siign = async (walletAdress) => {
+API.account.getText2Sign = async (walletAdress) => {
   let response = await API.sendRequest('GET', '/token/text2sign/' + walletAdress);
   let data = await response.json();
   return data.text2sign

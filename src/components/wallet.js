@@ -32,7 +32,8 @@ function Wallet() {
         //logout();
     }else if (status === "connected"){
         if (!text2sign){
-            API.account.getText2Siign(account).then(
+            text = `Getting signature text`;
+            API.account.getText2Sign(account).then(
                 setText2sign
             );
         }else if (!token){
