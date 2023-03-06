@@ -16,7 +16,7 @@ function Menu() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="float-right">
             <Nav className="me-auto">
-              <Nav.Link href="/">Futures</Nav.Link>
+              <Nav.Link href="/?symbol=BTCUSDT">Futures</Nav.Link>
               <Nav.Link href="/assets">Assets</Nav.Link>
               {/* <Nav.Link href="/transactions">Transactions</Nav.Link> */}
             </Nav>

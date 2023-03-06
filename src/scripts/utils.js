@@ -61,6 +61,11 @@ API.account.getAccount = async (walletAdress, chainId) => {
   let data = await response.json();
   return data[0]
 }
+API.account.getNetwork = async () => {
+  let response = await API.sendRequest('GET', `/network/`);
+  let data = await response.json();
+  return data[0]
+}
 
 API.account.createWallet = async (chainId) => {
   let params = {
