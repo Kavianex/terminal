@@ -56,7 +56,7 @@ API.account.getText2Sign = async (walletAdress) => {
   return data.text2sign
 }
 
-API.account.getAcount = async (walletAdress, chainId) => {
+API.account.getAccount = async (walletAdress, chainId) => {
   let response = await API.sendRequest('GET', `/subAccount/${chainId}/${walletAdress}`);
   let data = await response.json();
   return data[0]

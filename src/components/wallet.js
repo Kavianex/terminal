@@ -48,7 +48,7 @@ function Wallet() {
                 )
             }
         }else {
-            let tokenExpire = parseInt(localStorage.getItem('token').split(' ')[0].split(":")[1]); 
+            let tokenExpire = parseInt(token.split(' ')[0].split(":")[1]); 
             let now = new Date();
             if (now > tokenExpire){
                 logout();
@@ -62,7 +62,7 @@ function Wallet() {
             };
             if (!accountId){
                 console.log("getting accountID");
-                API.account.getAcount(account, chainId).then(userAccount => {
+                API.account.getAccount(account, chainId).then(userAccount => {
                     console.log(userAccount);
                     setAccountId(userAccount.id);
                     localStorage.setItem('accountId', userAccount.id);
