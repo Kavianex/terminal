@@ -1,7 +1,8 @@
 FROM node:16.19.0-alpine3.16
 WORKDIR /app
-COPY ./package.json ./package.json
 RUN npm install -g serve
+# COPY ./package.json ./package.json
+COPY ./package-lock.json ./package-lock.json
 RUN npm ci
 COPY . .
 RUN npm run build
