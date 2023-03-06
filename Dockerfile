@@ -2,7 +2,7 @@ FROM node:16.19.0-alpine3.16
 WORKDIR /app
 COPY ./package.json ./package.json
 RUN npm install -g serve
-RUN npm i
+RUN npm ci
 COPY . .
 RUN npm run build
 ENV NODE_ENV production

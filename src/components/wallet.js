@@ -42,10 +42,18 @@ function Wallet() {
             onClick = () => {
                 console.log("login");
                 ethereum.request({method: 'personal_sign', params: [account, text2sign]}).then(
-                    signature => setToken(`${text2sign} ${signature}`)
+                    signature => {
+                        setToken(`${text2sign} ${signature}`);
+                    }
                 )
             }
         }else {
+            let tokenExpire = parseInt(localStorage.getItem('token').split(' ')[0].split(":")[1]); 
+            let now = new Date();
+            if (now > tokenExpire){
+                logout();
+                setToken("");
+            }
             localStorage.setItem("token", token);
             text = 'Log out';
             onClick = () => {
