@@ -12,7 +12,7 @@ API.sendRequest = async function(method, endpoint, params){
     }
   };
   if (accountId) {
-    request.headers.account_id = accountId;
+    request.headers['account-id'] = accountId;
   }
   if (private_methods.indexOf(method) > -1){
     request.headers.Authorization = localStorage.getItem('token');
