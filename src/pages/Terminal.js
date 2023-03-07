@@ -17,8 +17,8 @@ let tvScriptLoadingPromise;
 const urlParams = new URLSearchParams(window.location.search);
 const symbolsInfo = {
     "BTCUSDT": {"base": "BTC", "quote": "USDT"},
-    "ETHUSDT": {"base": "ETH", "quote": "USDT"},
-    "ADAUSDT": {"base": "ADA", "quote": "USDT"},
+    // "ETHUSDT": {"base": "ETH", "quote": "USDT"},
+    // "ADAUSDT": {"base": "ADA", "quote": "USDT"},
 }
 const activeSymbols = Object.keys(symbolsInfo);
 const symbol = urlParams.get('symbol');
