@@ -15,11 +15,19 @@ import RangeSlider from 'react-bootstrap-range-slider';
 
 let tvScriptLoadingPromise;
 const urlParams = new URLSearchParams(window.location.search);
-const symbolsInfo = {
+let symbolsInfo = {
     "BTCUSDT": {"base": "BTC", "quote": "USDT"},
     // "ETHUSDT": {"base": "ETH", "quote": "USDT"},
     // "ADAUSDT": {"base": "ADA", "quote": "USDT"},
 }
+// API.account.getContracts().then(contracts => {
+//     let _symbols = {};
+//     contracts.array.forEach(contract => {
+//         _symbols[contract.symbol] = contract;
+//     });
+//     symbolsInfo = _symbols;
+// });
+// console.log(symbolsInfo);
 const activeSymbols = Object.keys(symbolsInfo);
 const symbol = urlParams.get('symbol');
 const OrderInput = (balances) => {
@@ -405,6 +413,7 @@ const Terminal = () => {
     const [balances, setBalances] = useState({});
     const [TerminalTableData, setTerminalTableData] = useState({'orders':[], 'positions':[]});
     const [depth, setDepth] = useState({"asks": {}, "bids": {}});
+    let accountId = localStorage.getItem('accountId');
     const { sendJsonMessage } = useWebSocket(`${process.env.REACT_APP_WEBSOCKET_SERVER}/ws/${localStorage.getItem('accountId')}`, {
         onOpen: () => sendJsonMessage({"method": "SUBSCRIBE", "channels": [
                 `${symbol}:orderBook`,
@@ -440,7 +449,8 @@ const Terminal = () => {
             };
         },
         onClose: (c) => {console.log("ws closed")}, 
-        reconnectInterval: 1
+        reconnectInterval: 1,
+        shouldReconnect: () => !!accountId
     });
 
     localStorage.setItem("TerminalTradingSymbol", symbol);

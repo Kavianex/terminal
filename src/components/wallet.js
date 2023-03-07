@@ -15,7 +15,6 @@ function Wallet() {
         ()=>{
             API.account.getNetwork().then(_network => {
                 setNetwork({..._network});
-                console.log(network);
             });
         },
         []
@@ -96,6 +95,7 @@ function Wallet() {
     }else if (status === "connected"){
         if (!text2sign){
             text = `Getting signature text`;
+            onClick = () => {window.location.reload(true);}
             API.account.getText2Sign(account).then(
                 setText2sign
             );
