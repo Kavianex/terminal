@@ -38,7 +38,7 @@ const columns = [
     // },
 ];
 const setFreeBalance = () => {
-    API.account.setFreeBalance()
+    API.account.setFreeBalance().then(()=>{window.location.reload(true)});
 }
 
 
