@@ -68,12 +68,14 @@ function Wallet() {
         console.log("logout");
         localStorage.setItem("token", "");
         localStorage.setItem("accountId", "");
+        window.location.reload(true);
     };
     const login = () => {
         console.log("login");
         ethereum.request({method: 'personal_sign', params: [account, text2sign]}).then(
             signature => {
                 setToken(`${text2sign} ${signature}`);
+                window.location.reload(true);
             }
         )
     };
@@ -95,7 +97,8 @@ function Wallet() {
     }else if (status === "connected"){
         if (!text2sign){
             text = `Getting signature text`;
-            onClick = () => {window.location.reload(true);}
+            onClick = () => {};
+            // onClick = () => {window.location.reload(true);}
             API.account.getText2Sign(account).then(
                 setText2sign
             );
