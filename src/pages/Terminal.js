@@ -12,13 +12,13 @@ import Wallet from '../components/wallet';
 import {API} from '../scripts/utils';
 import { toast } from 'react-toastify';
 import RangeSlider from 'react-bootstrap-range-slider';
-
+import { v4 as uuidv4 } from 'uuid';
 let tvScriptLoadingPromise;
 const urlParams = new URLSearchParams(window.location.search);
 let symbolsInfo = {
     "BTCUSDT": {"base": "BTC", "quote": "USDT"},
-    // "ETHUSDT": {"base": "ETH", "quote": "USDT"},
-    // "ADAUSDT": {"base": "ADA", "quote": "USDT"},
+    "ETHUSDT": {"base": "ETH", "quote": "USDT"},
+    "BNBUSDT": {"base": "BNB", "quote": "USDT"},
 }
 // API.account.getContracts().then(contracts => {
 //     let _symbols = {};
@@ -29,7 +29,19 @@ let symbolsInfo = {
 // });
 // console.log(symbolsInfo);
 const activeSymbols = Object.keys(symbolsInfo);
-const symbol = urlParams.get('symbol');
+let symbol = urlParams.get('symbol');
+const tvwidgetsymbol = urlParams.get('tvwidgetsymbol');
+if (!symbol){
+        console.log("no symbol");
+    if (tvwidgetsymbol){
+        console.log("tvwidgetsymbol", tvwidgetsymbol, tvwidgetsymbol.split(":")[1]);
+        let _symbol = tvwidgetsymbol.split(":")[1];
+        let _url = "/?symbol=" + _symbol;
+        symbol = _symbol;
+        window.location = _url;
+    }
+}
+
 const OrderInput = (balances) => {
     const [orderSide, setOrderSide] = useState("LONG");
     const [orderType, setOrderType] = useState("LIMIT");
@@ -174,7 +186,7 @@ const OrderInput = (balances) => {
                             variant={orderSide === "LONG" ? "success": "danger"}
                             onClick={sendOrder}
                             >
-                            {orderSide.toTitleCase()} BTC
+                            {orderSide.toTitleCase()} {baseInfo.name}
                         </Button>
                     ) : (
                         <Wallet />
@@ -406,15 +418,20 @@ const TerminalTable = (TerminalTableData) => {
         </>
     );
 }
+
 const Terminal = () => {
     if (activeSymbols.indexOf(symbol) === -1){
+        console.log("symbol not found:", symbol, activeSymbols);
         window.location = "/?symbol=" + activeSymbols[0];
     }
     const [balances, setBalances] = useState({});
     const [TerminalTableData, setTerminalTableData] = useState({'orders':[], 'positions':[]});
     const [depth, setDepth] = useState({"asks": {}, "bids": {}});
-    let accountId = localStorage.getItem('accountId');
-    const { sendJsonMessage } = useWebSocket(`${process.env.REACT_APP_WEBSOCKET_SERVER}/ws/${localStorage.getItem('accountId')}`, {
+    const [accountId, setAccountId] = useState(localStorage.getItem('accountId'));
+    if (!accountId){
+        setAccountId(uuidv4());
+    }
+    const { sendJsonMessage } = useWebSocket(`${process.env.REACT_APP_WEBSOCKET_SERVER}/ws/${accountId}`, {
         onOpen: () => sendJsonMessage({"method": "SUBSCRIBE", "channels": [
                 `${symbol}:orderBook`,
                 'balance',
@@ -422,7 +439,7 @@ const Terminal = () => {
             ]}),
         onMessage: (message) => {
             let data = JSON.parse(message.data);
-            console.log(data);
+            // console.log(data);
             let event = data.event;
             if (data.topic === `${symbol}:orderBook`){
                 let _depth = {...depth};

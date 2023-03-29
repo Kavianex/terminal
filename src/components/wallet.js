@@ -75,6 +75,7 @@ function Wallet() {
         ethereum.request({method: 'personal_sign', params: [account, text2sign]}).then(
             signature => {
                 setToken(`${text2sign} ${signature}`);
+                console.log("login, setToken");
                 window.location.reload(true);
             }
         )
@@ -90,7 +91,8 @@ function Wallet() {
         text = "Connect to MetaMask";
         onClick = connectWallet;
         // onClick = connect;
-        logout();
+        console.log("logout", text);
+        // logout();
     }else if (status === "connecting"){
         text = "Connecting...";
         //logout();
@@ -111,12 +113,14 @@ function Wallet() {
             let tokenExpire = parseInt(token.split(' ')[0].split(":")[1]); 
             let now = new Date();
             if (now > tokenExpire){
+                console.log("logout", tokenExpire);
                 logout();
                 setToken("");
             }
             localStorage.setItem("token", token);
             text = 'Log out';
             onClick = () => {
+                console.log("logout clicked");
                 logout();
                 setToken("");
             };
@@ -126,6 +130,7 @@ function Wallet() {
                     console.log(userAccount);
                     setAccountId(userAccount.id);
                     localStorage.setItem('accountId', userAccount.id);
+                    console.log("getAccount");
                     window.location.reload(true);
                 }).catch(() => {
                     console.log("unable to get accountId");
