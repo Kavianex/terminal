@@ -3,6 +3,7 @@ import DataTable from 'react-data-table-component';
 // import Button from 'react-bootstrap/Button';
 import {API} from '../scripts/utils';
 import Wallet from '../components/wallet';
+import { toast } from 'react-toastify';
 
 
 const columns = [
@@ -38,7 +39,9 @@ const columns = [
     // },
 ];
 const setFreeBalance = () => {
-    API.account.setFreeBalance().then(()=>{window.location.reload(true)});
+    API.account.setFreeBalance().then(()=>{window.location.reload(true)}).catch((e) => {
+        toast(e.detail, {type: "error"});
+    });
 }
 
 
@@ -76,7 +79,7 @@ const Assets = () => {
                 process.env.REACT_APP_APPLICATION_MODE === "TESTNET"? (
                     <div>
                         <div>
-                            <button className="btn btn-outline-primary my-2 my-sm-0" onClick={setFreeBalance}>Set free balance to 10,000 usdt for test</button>
+                            <button className="btn btn-outline-primary my-2 my-sm-0" onClick={setFreeBalance}>Set free balance to 1,000,000 usdt for test</button>
                             <br></br>
                             <span>You should have no open positions and orders</span>
                         </div>

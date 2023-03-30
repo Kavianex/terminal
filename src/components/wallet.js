@@ -68,6 +68,7 @@ function Wallet() {
         console.log("logout");
         localStorage.setItem("token", "");
         localStorage.setItem("accountId", "");
+        localStorage.clear();
         window.location.reload(true);
     };
     const login = () => {
@@ -112,12 +113,17 @@ function Wallet() {
         }else {
             let tokenExpire = parseInt(token.split(' ')[0].split(":")[1]); 
             let now = new Date();
+            now = now.getTime();
             if (now > tokenExpire){
-                console.log("logout", tokenExpire);
-                logout();
+                console.log("logout tokenExpire", tokenExpire, now);
+                localStorage.setItem("token", null);
                 setToken("");
+                logout();
+            }else{
+                localStorage.setItem("token", token);
+
             }
-            localStorage.setItem("token", token);
+            // localStorage.setItem("token", token);
             text = 'Log out';
             onClick = () => {
                 console.log("logout clicked");
@@ -131,7 +137,7 @@ function Wallet() {
                     setAccountId(userAccount.id);
                     localStorage.setItem('accountId', userAccount.id);
                     console.log("getAccount");
-                    window.location.reload(true);
+                    // window.location.reload(true);
                 }).catch(() => {
                     console.log("unable to get accountId");
                     API.account.createWallet(chainId).then(() => {

@@ -101,6 +101,9 @@ API.account.setFreeBalance = async () => {
   }
   let response = await API.sendRequest('PUT', `/balance/setFreeBalance`, params);
   let data = await response.json();
+  if (response.status === 400){
+    throw data
+  }
   return data
 }
 
